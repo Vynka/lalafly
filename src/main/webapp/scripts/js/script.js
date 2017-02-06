@@ -32,10 +32,10 @@ $(function () {
         min: 50,
         max: 450,
         slide: function (event, ui) {
-            $("#amount").val(ui.value);
+            $("#amount").val(ui.value + ' €');
         }
     });
-    $("#amount").val($("#slider-range-min").slider("value"));
+    $("#amount").val($("#slider-range-min").slider("value") + " €");
 });
 
 $(function () {
@@ -81,19 +81,23 @@ function cargaDatos() {
     ajaxAeropuerto = $.ajax({
         "url": "webresources/aeropuerto",
         "type": "get",
-        "dataType": "json"
+        "dataType": "json",
+        "success": function (aeropuerto) {
+            aeropuertos = aeropuerto;
+            populate('#selASalida',aeropuertos);
+            populate('#selALlegada',aeropuertos);
+        }
         });
-    aeropuertos = ajaxAeropuerto.responseJSON;
 
     ajaxAerolineas = $.ajax({
-        "url": "webresources/aerolineas",
+        "url": "webresources/aerolinea",
         "type": "get",
-        "dataType": "json"
-                //"success": function (aeropuerto) {
-                //console.log(aeropuerto);
-                //}
+        "dataType": "json",
+        "success": function (aerolinea) {
+            aerolineas = aerolinea;
+            populate('#selectAerolinea', aerolineas);
+        }
         });
-    aerolineas = ajaxAerolineas.responseJSON;
 
     vuelosGenericos = [{id: '0', origen: 'MAD', destino: 'TFN', precio: 100, hora: '8:00', plazas: 3, aerolinea: 'IBE'},
         {id: '1', origen: 'BCN', destino: 'MAD', precio: 50, hora: '8:00', plazas: 4, aerolinea: 'AEA'},
@@ -101,12 +105,9 @@ function cargaDatos() {
         {id: '3', origen: 'TFN', destino: 'BCN', precio: 200, hora: '8:00', plazas: 1, aerolinea: 'IBB'},
         {id: '4', origen: 'MAD', destino: 'TFS', precio: 110, hora: '9:00', plazas: 3, aerolinea: 'IBE'}
     ];
-    populate('#selASalida', aeropuertos);
-    populate('#selALlegada', aeropuertos);
-    populate('#selectAerolinea', aerolineas);
 };
 
-$(document).ready(cargaDatos());
+$(document).ready(cargaDatos);
 
 function populate(selector, data) {
     for (var i = 0; i < data.length; i++) {
