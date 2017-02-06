@@ -9,11 +9,8 @@ and open the template in the editor.
 */
 
 
-#logo {
-width: 25%;
-padding: 0;
-margin-left: 37.5%;
-margin-right: 37.5%;
+.page-header {
+    padding-left: 5%;
 }
 h1,h2{
     text-align: center;
@@ -21,4 +18,8 @@ h1,h2{
 a{
     clear:left;
     float:left;
+}
+
+#vuelos,#reserva {
+	visibility: hidden;
 }
