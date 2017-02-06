@@ -58,14 +58,14 @@ and open the template in the editor.
                                 <div class="col-lg-7">
                                     <input type="text" class="form-control time start"/>
                                 </div>
-                                <label for="selFLlegada" class="col-lg-5 control-label">Fecha de Regreso:</label>
+                                <!--label for="selFLlegada" class="col-lg-5 control-label">Fecha de Regreso:</label>
                                 <div class="col-lg-7">
                                     <input type="text" class="form-control date end"/>
                                 </div>
                                 <label for="selHLlegada" class="col-lg-5 control-label">Hora de Regreso:</label>
                                 <div class="col-lg-7">
                                     <input type="text" class="form-control time end"/>
-                                </div>
+                                </div-->
                             </div>
 
                             <div class="form-group">
@@ -135,7 +135,7 @@ and open the template in the editor.
                 </div>
                 <div class="col-sm-4 sidenav" id='reserva'>
                     <h1>Reserva</h1>
-                    <div class="well">
+                    <div class="well" id='datosDeVuelo'>
                         <h3>Datos del Vuelo:</h3>
                         <div class="form-group">
                             <label>Nº de Vuelo:</label> <span id='nVuelo'></span><br/>
@@ -148,14 +148,17 @@ and open the template in the editor.
                             <label>Compañía:</label> <span id='vCompany'></span><br/>
                             <label>Precio:</label> <span id='vPrice'></span><br/>
                         </div>
-						<button id='payBtn'>Confirmar</button>
                     </div>
+					
+						<button id='payBtn'>Confirmar</button>
                 </div>
             </div>
         </div>
   <form class="form-horizontal modal" role="form" id='payment'>
 	<div class='modal-content'>
     <span class="close">&times;</span>
+	<div id='confirmData'>
+	</div>
     <fieldset>
       <legend>Pago</legend>
       <div class="form-group">
@@ -223,7 +226,7 @@ and open the template in the editor.
     </fieldset>
 	</div>
   </form>
-</div>
+
 
         <footer class="container-fluid text-center">
             <p>2º Desarrollo de Aplicaciones Web B</p>

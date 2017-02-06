@@ -1,3 +1,30 @@
+// Get the modal
+var modal = document.getElementById('payment');
+
+// Get the button that opens the modal
+var btn = document.getElementById("payBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+};
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+};
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+};
+
+
 $( function() {
     $( "#slider-range-min" ).slider({
       range: "min",
@@ -47,31 +74,31 @@ $( function() {
 DATOS DE EJEMPLO
 */
 aeropuertos = [
-					{data:"Madrid Barajas",code:"MAD"},
-					{data:"Barcelona El Prat",code:"BCN"},
-					{data:"Tenerife Norte",code:"TFN"},
-					{data:"Tenerife Sur",code:"TFS"}
-			];
+                    {data:"Madrid Barajas",code:"MAD"},
+                    {data:"Barcelona El Prat",code:"BCN"},
+                    {data:"Tenerife Norte",code:"TFN"},
+                    {data:"Tenerife Sur",code:"TFS"}
+		];
 
 
 aerolineas = [
-				{code:"IBB",data:"Binter"},
-				{code:"AEA",data:"Air Europa"},
-				{code:"IBB",data:"Iberia"}
-			];
+                    {code:"IBB",data:"Binter"},
+                    {code:"AEA",data:"Air Europa"},
+                    {code:"IBE",data:"Iberia"}
+		];
 				
 				
-vuelosGenericos = [ {id: '12345_1', code: 'MAD', origen:'Madrid', destino:'Tenerife Norte', precio:100, hora:'8:00', plazas:3},
-					{id: '12345_2', code: 'BCN', origen:'Barcelona', destino:'Barcelona', precio:50, hora:'8:00', plazas:4},
-					{id: '12345_3', code: 'TFN', origen:'Tenerife', destino:'Madrid', precio:150, hora:'8:00', plazas:2},
-					{id: '12345_4', code: 'TFS', origen:'Tenerife', destino:'Barcelona', precio:200, hora:'8:00', plazas:1},
-					{id: '12345_5', code: 'MAD', origen:'Madrid', destino:'Tenerife Sur', precio:110, hora:'9:00', plazas:3}
-				  ];
+vuelosGenericos = [     {id: '0', origen:'MAD', destino:'TFN', precio:100, hora:'8:00', plazas:3, aerolinea:'IBE'},
+			{id: '1', origen:'BCN', destino:'MAD', precio:50, hora:'8:00',  plazas:4, aerolinea:'AEA'},
+			{id: '2', origen:'TFN', destino:'MAD', precio:150, hora:'8:00', plazas:2, aerolinea:'IBB'},
+			{id: '3', origen:'TFN', destino:'BCN', precio:200, hora:'8:00', plazas:1, aerolinea:'IBB'},
+			{id: '4', origen:'MAD', destino:'TFS', precio:110, hora:'9:00', plazas:3, aerolinea:'IBE'}
+                    ];
   
 function populate(selector,data) {
 	for (var i=0; i < data.length; i++){
 		$(selector)
-		.append('<option value="'+ data[i].code + '">' + data[i].data + '</option>')
+		.append('<option value="'+ data[i].code + '">' + data[i].data + '</option>');
 	}
 }
 
@@ -80,24 +107,57 @@ populate('#selALlegada',aeropuertos);
 populate('#selectAerolinea',aerolineas);
 
 $("#btn_Buscar").click(function (){
+	$('#listaVuelos').html('');
+	var nvuelos = 0;
 	$("#vuelos").css('visibility','visible');
-				$('#reserva').css('visibility','hidden')
-	for (var i = 0; i < vuelosGenericos.length; i++){
+	$('#reserva').css('visibility','hidden');
+
+        for (var i = 0; i < vuelosGenericos.length; i++){
+
 		var vuelo = vuelosGenericos[i];
-		if ($('#selASalida').val() == vuelo.code &&
-					parseInt($('#numPasajero').val()) <= vuelo.plazas &&
-					parseInt($('#amount').val()) >= vuelo.precio) {
+		
+		if (	$('#selASalida').val() == vuelo.origen &&
+				$('#selALlegada').val() == vuelo.destino &&
+				parseInt($('#numPasajero').val()) <= vuelo.plazas &&
+				parseInt($('#amount').val()) >= vuelo.precio &&
+				$('#selectAerolinea').val() == vuelo.aerolinea
+			) {
+				
+			nvuelos++;
 				
 			$('#listaVuelos').append('<div class="detalleVuelo" id="' + vuelo.id + '"><h1>' + vuelo.origen + ' - ' + vuelo.destino + '</h1></div>');
 			$('#'+vuelo.id).append('<label>Hora de salida</label> ');
 			$('#'+vuelo.id).append(vuelo.hora);
 			$('#'+vuelo.id).append('<br/><label>Plazas</label> ');
 			$('#'+vuelo.id).append(vuelo.plazas);
+			$('#'+vuelo.id).append('<br/><label>Precio</label> ');
+			$('#'+vuelo.id).append(vuelo.precio);
 			$('#'+vuelo.id).append('<br/><button id="btn_'+vuelo.id+'">Reservar</button>')
-			$('#btn_'+vuelo.id).click(function(){
+			
+			$('#btn_'+vuelo.id).click(function(e){
+				
+				var id = e.target.id.substr(e.target.id.length - 1);
+				
 				$('#reserva').css('visibility','visible')
+				$('#nVuelo').html(vuelosGenericos  [id].id);
+				$('#aOrigen').html(vuelosGenericos [id].origen);
+				$('#aDestino').html(vuelosGenericos[id].destino);
+				$('#vCompany').html(vuelosGenericos[id].aerolinea);
+				$('#vPrice').html(vuelosGenericos  [id].precio + ' €');
+				
+				var datosDeVuelo = $('#datosDeVuelo').html();
+				$('#confirmData').html(datosDeVuelo);
 			});
 		}
 	}
 	
+	if (nvuelos == 0)
+		$('#listaVuelos').append('<div class="detalleVuelo" id="0"><h1> No se han encontrado vuelos con las características deseadas </h1></div>');
+	
 })
+
+$('#success').click(function(){
+    modal.style.display = "none";
+	$('#vuelos'  ).css('visibility','hidden');
+	$('#reserva' ).css('visibility','hidden');
+});
