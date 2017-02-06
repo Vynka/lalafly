@@ -142,7 +142,7 @@ $("#btn_Buscar").click(function () {
             $('#' + vuelo.id).append(vuelo.plazas);
             $('#' + vuelo.id).append('<br/><label>Precio</label> ');
             $('#' + vuelo.id).append(vuelo.precio);
-            $('#' + vuelo.id).append('<br/><button id="btn_' + vuelo.id + '">Reservar</button>')
+            $('#' + vuelo.id).append('<br/><button class="btn btn-primary btn-lg" id="btn_' + vuelo.id + '">Reservar</button>')
 
             $('#btn_' + vuelo.id).click(function (e) {
 
@@ -154,6 +154,7 @@ $("#btn_Buscar").click(function () {
                 $('#aDestino').html(vuelosGenericos[id].destino);
                 $('#vCompany').html(vuelosGenericos[id].aerolinea);
                 $('#vPrice').html(vuelosGenericos  [id].precio + ' €');
+                $('#plazasReservadas').html($('#numPasajero').val());
 
                 var datosDeVuelo = $('#datosDeVuelo').html();
                 $('#confirmData').html(datosDeVuelo);

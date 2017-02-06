@@ -98,9 +98,6 @@ and open the template in the editor.
                             </div>
 
                             <button type="button" class="btn btn-primary btn-lg" id='btn_Buscar'>Buscar</button>
-
-
-
                         </form>
                     </div>
                 </div>
@@ -135,22 +132,24 @@ and open the template in the editor.
                 </div>
                 <div class="col-sm-4 sidenav" id='reserva'>
                     <h1>Reserva</h1>
-                    <div class="well" id='datosDeVuelo'>
-                        <h3>Datos del Vuelo:</h3>
-                        <div class="form-group">
-                            <label>Nº de Vuelo:</label> <span id='nVuelo'></span><br/>
-                            <label>Aeropuerto de Origen:</label> <span id='aOrigen'></span><br/>
-                            <label>Aeropuerto de Destino:</label> <span id='aDestino'></span><br/>
-                        </div>                  
-                        <div class="form-group">
-                            <label>Hora de Salida:</label> <span id='hSalida'></span><br/>
-                            <label>Hora de Llegada:</label> <span id='hLlegada'></span><br/>
-                            <label>Compañía:</label> <span id='vCompany'></span><br/>
-                            <label>Precio:</label> <span id='vPrice'></span><br/>
+                    <div class="well">
+                        <div id='datosDeVuelo'>
+                            <h3>Datos del Vuelo:</h3>
+                            <div class="form-group">
+                                <label>Nº de Vuelo:</label> <span id='nVuelo'></span><br/>
+                                <label>Aeropuerto de Origen:</label> <span id='aOrigen'></span><br/>
+                                <label>Aeropuerto de Destino:</label> <span id='aDestino'></span><br/>
+                                <label>Plazas reservadas:</label> <span id='plazasReservadas'></span><br/>
+                            </div>                  
+                            <div class="form-group">
+                                <label>Hora de Salida:</label> <span id='hSalida'></span><br/>
+                                <label>Hora de Llegada:</label> <span id='hLlegada'></span><br/>
+                                <label>Compañía:</label> <span id='vCompany'></span><br/>
+                                <label>Precio:</label> <span id='vPrice'></span><br/>
+                            </div>
                         </div>
+                        <button class="btn btn-primary btn-lg" id='payBtn'>Confirmar</button>
                     </div>
-					
-						<button id='payBtn'>Confirmar</button>
                 </div>
             </div>
         </div>
